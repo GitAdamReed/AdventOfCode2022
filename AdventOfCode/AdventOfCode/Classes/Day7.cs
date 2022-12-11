@@ -80,6 +80,7 @@ namespace AdventOfCode.Classes
                             {
                                 if (kvp.Key == dirName) affix++;
                             }
+                            dirName += affix;
                         }
                         filesAdded.Add(dirName, new List<string>() { file });
                     }
