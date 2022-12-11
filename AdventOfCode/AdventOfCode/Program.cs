@@ -1,4 +1,4 @@
-﻿using Advent_of_Code.Classes;
+﻿using AdventOfCode.Classes;
 
 namespace Advent_of_Code
 {
@@ -30,6 +30,15 @@ namespace Advent_of_Code
             //Day5 day5 = new();
             //Console.WriteLine(day5.GetTopCrates());
             //Console.WriteLine(day5.GetTopCratesCrateMover9001());
+            #endregion
+
+            #region Day 6
+            //Console.WriteLine(Day6.FindStartOfPacketMarkerPosition());
+            //Console.WriteLine(Day6.FindStartOfMessageMarkerPosition());
+            #endregion
+
+            #region Day 7
+            Console.WriteLine(Day7.SumOfDirSizesUnder100000());
             #endregion
         }
     }
