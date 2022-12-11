@@ -14,19 +14,33 @@ namespace AdventOfCode.Classes
         {
             Dictionary<string, int> directories = new();
             List<string> currentDirs = new();
-            List<string> filesAdded = new();
+            Dictionary<string, List<string>> filesAdded = new();
 
             foreach (var line in File.ReadLines(_filePath))
             {
                 string[] splitLine = line.Split(" ");
                 if (splitLine[1] == "cd" && splitLine[2] != "..")
                 {
+                    if (splitLine[2] == "vsqjb")
+                    {
+
+                    }
+
+                    if (currentDirs.Find(f => f == splitLine[2]) != null)
+                    {
+                        int affix = 0;
+                        foreach (var dir in currentDirs)
+                        {
+                            if (dir == splitLine[2]) affix++;
+                        }
+
+                        splitLine[2] += affix;
+                    }
                     if (!directories.ContainsKey(splitLine[2]))
                     {
                         directories.Add(splitLine[2], 0);
                     }
                     currentDirs.Add(splitLine[2]);
-
                 }
                 else if (splitLine[1] == "cd" && splitLine[2] == "..")
                 {
@@ -34,8 +48,19 @@ namespace AdventOfCode.Classes
                 }
                 else if (Int32.TryParse(splitLine[0], out int fileSize))
                 {
-                    string? file = filesAdded.Find(f => f == splitLine[1]);
-                    if (file == null)
+                    string file = splitLine[1];
+                    bool duplicate = false;
+                    bool dirExists = false;
+                    foreach (var kvp in filesAdded)
+                    {
+                        if (kvp.Key == currentDirs[^1])
+                        {
+                            if (kvp.Value.Find(f => f == file) != null) duplicate = true;
+                            else kvp.Value.Add(file);
+                            dirExists = true;
+                        }
+                    }
+                    if (!duplicate)
                     {
                         foreach (var dir in currentDirs)
                         {
@@ -44,7 +69,19 @@ namespace AdventOfCode.Classes
                                 directories[dir] += fileSize;
                             }
                         }
-                        filesAdded.Add(splitLine[1]);
+                    }
+                    if (!dirExists)
+                    {
+                        string dirName = currentDirs[^1];
+                        if (filesAdded.ContainsKey(dirName))
+                        {
+                            int affix = 0;
+                            foreach (var kvp in filesAdded)
+                            {
+                                if (kvp.Key == dirName) affix++;
+                            }
+                        }
+                        filesAdded.Add(dirName, new List<string>() { file });
                     }
                 }
             }
