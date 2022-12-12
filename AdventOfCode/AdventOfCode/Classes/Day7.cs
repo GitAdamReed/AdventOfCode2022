@@ -10,89 +10,55 @@ namespace AdventOfCode.Classes
     {
         private static string _filePath = "C:\\Users\\Adam\\Documents\\GitHub\\AdventOfCode2022\\AdventOfCode\\AdventOfCode\\Text_Files\\Day7_Input.txt";
 
+        private class Directory
+        {
+            public string name;
+            public int size = 0;
+        }
+
         public static int SumOfDirSizesUnder100000()
         {
-            Dictionary<string, int> directories = new();
-            List<string> currentDirs = new();
-            Dictionary<string, List<string>> filesAdded = new();
+            List<Directory> directories = new();
+            Stack<Directory> currentDirs = new();
+            //Dictionary<string, List<string>> filesAdded = new();
 
             foreach (var line in File.ReadLines(_filePath))
             {
                 string[] splitLine = line.Split(" ");
                 if (splitLine[1] == "cd" && splitLine[2] != "..")
                 {
-                    if (splitLine[2] == "vsqjb")
+                    Directory newDirectory = new()
                     {
-
-                    }
-
-                    if (currentDirs.Find(f => f == splitLine[2]) != null)
-                    {
-                        int affix = 0;
-                        foreach (var dir in currentDirs)
-                        {
-                            if (dir == splitLine[2]) affix++;
-                        }
-
-                        splitLine[2] += affix;
-                    }
-                    if (!directories.ContainsKey(splitLine[2]))
-                    {
-                        directories.Add(splitLine[2], 0);
-                    }
-                    currentDirs.Add(splitLine[2]);
+                        name = splitLine[2]
+                    };
+                    directories.Add(newDirectory);
+                    currentDirs.Push(newDirectory);
                 }
                 else if (splitLine[1] == "cd" && splitLine[2] == "..")
                 {
-                    currentDirs.Remove(currentDirs[^1]);
+                    currentDirs.Pop();
                 }
                 else if (Int32.TryParse(splitLine[0], out int fileSize))
                 {
-                    string file = splitLine[1];
-                    bool duplicate = false;
-                    bool dirExists = false;
-                    foreach (var kvp in filesAdded)
+                    foreach (var dir in directories)
                     {
-                        if (kvp.Key == currentDirs[^1])
+                        foreach (var currentDir in currentDirs)
                         {
-                            if (kvp.Value.Find(f => f == file) != null) duplicate = true;
-                            else kvp.Value.Add(file);
-                            dirExists = true;
-                        }
-                    }
-                    if (!duplicate)
-                    {
-                        foreach (var dir in currentDirs)
-                        {
-                            if (directories.ContainsKey(dir))
+                            if (currentDir == dir)
                             {
-                                directories[dir] += fileSize;
+                                dir.size += fileSize;
                             }
                         }
-                    }
-                    if (!dirExists)
-                    {
-                        string dirName = currentDirs[^1];
-                        if (filesAdded.ContainsKey(dirName))
-                        {
-                            int affix = 0;
-                            foreach (var kvp in filesAdded)
-                            {
-                                if (kvp.Key == dirName) affix++;
-                            }
-                            dirName += affix;
-                        }
-                        filesAdded.Add(dirName, new List<string>() { file });
                     }
                 }
             }
 
             int totalFileSize = 0;
-            foreach (var kvp in directories)
+            foreach (var dir in directories)
             {
-                if (kvp.Value <= 100000)
+                if (dir.size <= 100000)
                 {
-                    totalFileSize += kvp.Value;
+                    totalFileSize += dir.size;
                 }
             }
 
