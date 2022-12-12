@@ -16,11 +16,10 @@ namespace AdventOfCode.Classes
             public int size = 0;
         }
 
-        public static int SumOfDirSizesUnder100000()
+        private static List<Directory> GetDirSizes()
         {
             List<Directory> directories = new();
             Stack<Directory> currentDirs = new();
-            //Dictionary<string, List<string>> filesAdded = new();
 
             foreach (var line in File.ReadLines(_filePath))
             {
@@ -53,6 +52,13 @@ namespace AdventOfCode.Classes
                 }
             }
 
+            return directories;
+        }
+
+        public static int SumOfDirSizesUnder100000()
+        {
+            var directories = GetDirSizes();
+
             int totalFileSize = 0;
             foreach (var dir in directories)
             {
@@ -63,6 +69,30 @@ namespace AdventOfCode.Classes
             }
 
             return totalFileSize;
+        }
+
+        public static int SizeOfDirToDelete()
+        {
+            var directories = GetDirSizes();
+            int totalSpace = 70000000;
+            int updateSize = 30000000;
+            int spaceUsed = directories.Find(d => d.name == "/").size;
+            int spaceAvailable = totalSpace - spaceUsed;
+            int spaceNeeded = updateSize - spaceAvailable;
+
+            int lowestDir = spaceUsed;
+            int lowestSize = Int32.MaxValue;
+            foreach (var dir in directories)
+            {
+                int newSize = dir.size - spaceNeeded;
+                if (newSize >= 0 && newSize < lowestSize)
+                {
+                    lowestDir = dir.size;
+                    lowestSize = newSize;
+                }
+            }
+
+            return lowestDir;
         }
     }
 }

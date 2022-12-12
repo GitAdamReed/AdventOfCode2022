@@ -38,7 +38,8 @@ namespace Advent_of_Code
             #endregion
 
             #region Day 7
-            Console.WriteLine(Day7.SumOfDirSizesUnder100000());
+            //Console.WriteLine(Day7.SumOfDirSizesUnder100000());
+            //Console.WriteLine(Day7.SizeOfDirToDelete());
             #endregion
         }
     }
