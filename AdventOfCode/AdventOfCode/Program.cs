@@ -41,6 +41,10 @@ namespace Advent_of_Code
             //Console.WriteLine(Day7.SumOfDirSizesUnder100000());
             //Console.WriteLine(Day7.SizeOfDirToDelete());
             #endregion
+
+            #region Day 8
+            Console.WriteLine(Day8.GetVisibleTreesCount());
+            #endregion
         }
     }
 }
