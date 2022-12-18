@@ -142,7 +142,7 @@ namespace AdventOfCode.Classes
                     int l = x - 1;
                     while (!viewBlocked && l >= 0)
                     {
-                        if (_treeMatrix[l, y]._size > tree._size)
+                        if (_treeMatrix[l, y]._size >= tree._size)
                         {
                             viewBlocked = true;
                         }
@@ -154,7 +154,7 @@ namespace AdventOfCode.Classes
                     int r = x + 1;
                     while (!viewBlocked && r <= _treeMatrix.GetUpperBound(0))
                     {
-                        if (_treeMatrix[r, y]._size > tree._size)
+                        if (_treeMatrix[r, y]._size >= tree._size)
                         {
                             viewBlocked = true;
                         }
@@ -166,7 +166,7 @@ namespace AdventOfCode.Classes
                     int u = y - 1;
                     while (!viewBlocked && u >= 0)
                     {
-                        if (_treeMatrix[x, u]._size > tree._size)
+                        if (_treeMatrix[x, u]._size >= tree._size)
                         {
                             viewBlocked = true;
                         }
@@ -178,7 +178,7 @@ namespace AdventOfCode.Classes
                     int d = y + 1;
                     while (!viewBlocked && d <= _treeMatrix.GetUpperBound(1))
                     {
-                        if (_treeMatrix[x, d]._size > tree._size)
+                        if (_treeMatrix[x, d]._size >= tree._size)
                         {
                             viewBlocked = true;
                         }
