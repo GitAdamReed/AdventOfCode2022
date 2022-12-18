@@ -43,7 +43,8 @@ namespace Advent_of_Code
             #endregion
 
             #region Day 8
-            Console.WriteLine(Day8.GetVisibleTreesCount());
+            //Console.WriteLine(Day8.VisibleCount);
+            Console.WriteLine(Day8.HighestScenicScore);
             #endregion
         }
     }
