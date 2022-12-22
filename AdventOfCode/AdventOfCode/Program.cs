@@ -46,6 +46,11 @@ namespace Advent_of_Code
             //Console.WriteLine(Day8.VisibleCount);
             //Console.WriteLine(Day8.HighestScenicScore);
             #endregion
+
+            #region Day 9
+            Day9 day9 = new();
+            Console.WriteLine(day9.NumUniqueTailPositions);
+            #endregion
         }
     }
 }
