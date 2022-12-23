@@ -48,8 +48,8 @@ namespace Advent_of_Code
             #endregion
 
             #region Day 9
-            Day9 day9 = new();
-            Console.WriteLine(day9.NumUniqueTailPositions);
+            //Console.WriteLine(Day9.SimulateRopeMotions());
+            Console.WriteLine(Day9.SimulateRopeMotionsMultiple());
             #endregion
         }
     }
